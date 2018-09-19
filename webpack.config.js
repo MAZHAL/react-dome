@@ -26,7 +26,7 @@ const config = {
     mode:'development',
 
     entry:{
-        app: './app/index.js'
+        app: './app/index.jsx'
     },
     output: {
         path: path.resolve(__dirname, 'build'),
