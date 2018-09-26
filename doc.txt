@@ -1,13 +1,24 @@
 安装webpack
-webpack
-webpack - cli--
-save - dev
+npm install webpack webpack-cli --save-dev
 
 创建
 webpack.config.js
 创建 app目录
 创建 index.tmpl.html
 创建index.js
+
+mode:'development',
+
+entry:{
+        app: './app/index.js'
+    },
+output: {
+        path: path.resolve(__dirname, 'build'),
+        filename: 'js/[name].[chunkhash:8].js',
+        publicPath: webPath.publicPath
+},
+
+
 安装磨板组件
 npm install  html-webpack-plugin   --save - dev
 
@@ -261,7 +272,35 @@ npm install babel-preset-react-hmre react-transform-hmr react-transform-catch-er
     }
 }
 
+webpack rest 支持 
+安装组件 
+npm install  babel-plugin-transform-object-rest-spread --save-dev
+修改.babelrc 
+{
+ "plugins": ["transform-object-rest-spread"]
+}
+webpack 支持static 关键字
+
+npm install babel-preset-stage-0 --save-dev
+
+修改 .babelrc
+
+{
+  "presets": [
+    "env",
+    "react",
+    "stage-0"
+  ],
+  "plugins": ["transform-object-rest-spread"]
+}
+
+
+
 //代码分离
+
+
+
+
 
 安装 react 生产环境依赖
 npm install babel-preset-react --save-dev
@@ -274,6 +313,7 @@ npm install babel-preset-react --save-dev
 "react-router-dom": "^4.3.1",
 "redux": "^4.0.0",
 "redux-thunk": "^2.3.0"
+prop-types
 
 
 

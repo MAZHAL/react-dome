@@ -6,6 +6,7 @@ const purifyCssPlugin = require('purifycss-webpack'); //css抽离
 const webpack = require('webpack');
 const copyWebpackPlugin = require('copy-webpack-plugin'); //静态文件copy
 const glob = require('glob');
+const OptimizeCssAssetsPlugin =require('optimize-css-assets-webpack-plugin');
 
 /*const extractCss = new extractTextWebpackPlugin(
     {
@@ -15,18 +16,19 @@ const glob = require('glob');
         // disable:true// 开发环境下为true 打包环境下false
     });*/
 const webPath = {};
+
 if(process.env.type == 'dev'){
     console.log(process.env.type);
-    webPath.publicPath = "http://192.168.0.105:8080/"//配置文件的路径
+    webPath.publicPath = "http://172.18.0.6:8080/"//配置文件的路径
 } else {
-    webPath.publicPath = "http://192.168.0.105:8080/" // 生产环境配置
+    webPath.publicPath = "http://172.18.0.6:8080/" // 生产环境配置
 }
 
 const config = {
     mode:'development',
 
     entry:{
-        app: './app/index.js'
+        app: './app/index.jsx'
     },
     output: {
         path: path.resolve(__dirname, 'build'),
@@ -184,10 +186,18 @@ cacheGroups: 缓存组。
                 to:'./static'//copy到哪里
             }
         ]),
+        new OptimizeCssAssetsPlugin({
+            assetNameRegExp: /\.optimize\.css$/g,
+            cssProcessor: require('cssnano'),
+            cssProcessorPluginOptions: {
+                preset: ['default', { discardComments: { removeAll: true } }],
+            },
+            canPrint: true
+        })
     ],
     devServer: {
         contentBase: path.resolve(__dirname, 'build'),// 项目根目录
-        host: '192.168.0.101', // ip地址
+        host: '172.18.0.6', // ip地址
         compress:true, // 服务器压缩
         open : true, // 自动打开服务器
         port:8080,
